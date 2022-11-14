@@ -19,12 +19,16 @@ function btnClick(event) {
   if (touche === "C") {
     btnClear();
   } else {
+     
+    boutons[0].disabled = false; 
+
     if (touche === "=") {
       console.log("=");
       resultat = effectuerCalcul(op1, op2, oper);
       op1 = resultat;
       op2 = "";
       oper = "";
+      boutons[boutons.length -1].disabled = true;
     } else {
       if (
         touche === "+" ||
@@ -41,6 +45,8 @@ function btnClick(event) {
             op1 += touche;
           } else {
             op2 += touche;
+            boutons[boutons.length -1].disabled = false;
+
           }
         }
       }
@@ -63,6 +69,9 @@ function btnClear() {
   op2 = "";
   oper = "";
   resultat = "";
+  boutons[0].disabled = true;
+  boutons[boutons.length -1 ].disabled = true; 
+  
 }
 
 /**
@@ -136,10 +145,12 @@ function init() {
     divs;
 
   // récupération de tout les boutons pour leur assigner le gestionnaire d'évènement click
-  let boutons = document.querySelectorAll("button");
+  boutons = document.querySelectorAll("button");
   for (let bouton of boutons) {
     bouton.onclick = btnClick;
   }
+    boutons[0].disabled = true;
+    boutons[boutons.length -1 ].disabled = true; 
 }
 
 document.addEventListener("DOMContentLoaded", function () {
